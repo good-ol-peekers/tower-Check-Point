@@ -1,0 +1,16 @@
+
+  {
+    "name": "tower-check-point",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd tower-Check-Point.client && npm i",
+      "setup:server": "cd tower-Check-Point && npm i",
+      "start": "node tower-Check-Point/index.js"
+    },
+    "engines": {
+      "node": "^18.12.1"
+    }
+  }
+  
