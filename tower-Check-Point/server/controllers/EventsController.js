@@ -2,6 +2,7 @@ import BaseController from "../utils/BaseController";
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { commentsService } from "../services/CommentsService.js"; 
 import { eventsService } from "../services/EventsService.js";
+import { dbContext } from "../db/DbContext";
 
 
 export class EventsController extends BaseController {
@@ -11,7 +12,7 @@ export class EventsController extends BaseController {
         this.router
         .get('', this.getAllEvents)
         // .get('/:eventId/comments', getEventComments)
-        // .get('/:eventId', getEventById)
+        .get('/:eventId', this.getEventById)
         .use(Auth0Provider.getAuthorizedUserInfo)
         .post('', this.createEvent)
         // .put('/:eventId', editEvent)
@@ -19,8 +20,18 @@ export class EventsController extends BaseController {
     }
     async getAllEvents(req, res, next) {
         try {
-            const event = await eventsService.getAllEvents()
-            res.send(event)
+            const events = await eventsService.getAllEvents()
+            res.send(events)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async getEventById(req, res, next) {
+        try {
+            const eventId = req.params.eventId
+            const event = await eventsService.getEventById(eventId)
+            return res.send(event)
         } catch (error) {
             next(error)
         }
@@ -31,8 +42,8 @@ export class EventsController extends BaseController {
             const eventData = req.body
             eventData.creatorId = req.userInfo.id
 
-            const event = await eventsService.createEvent(eventData)
-            return res.send(event)
+            const newEvent = await eventsService.createEvent(eventData)
+            return res.send(newEvent)
 
         } catch (error) {
             next(error)
