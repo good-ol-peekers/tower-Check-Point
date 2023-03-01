@@ -3,10 +3,10 @@
     <Navbar />
   </header>
   <main>
-    <!-- <router-view /> -->
+    <router-view />
   </main>
-   <footer class="">
-    
+  <footer>
+
   </footer>
 </template>
 
@@ -27,7 +27,7 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
-:root{
+:root {
   --main-height: calc(100vh - 32px - 64px);
 }
 
