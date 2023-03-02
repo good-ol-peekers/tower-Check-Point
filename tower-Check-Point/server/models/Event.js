@@ -7,7 +7,7 @@ export const EventsSchema = new Schema(
     description: { type: String, required: true, minLength: 1, maxLength: 5000 },
     coverImg:  { type: String, required: true, minLength: 1, maxLength: 5000 },
     location: { type: String, required: true, minLength: 1, maxLength: 5000 },
-    capacity: { type: Number, required: true, minLength: 1, maxLength: 5000 },
+    capacity: { type: Number, required: true, minLength: 1, maxLength: 1000000 },
     startDate: { type: Date, required: true, minLength: 1, maxLength: 5000 },
     type: { type: String, required: true, enum: ['concert', 'convention', 'sport', 'digital'] },
 
