@@ -6,8 +6,8 @@
   
   <div v-if="events" class="container-fluid">
     <div class="row">
-      <div class="col-2" v-for="e in events" :key="e.id">
-          <event :events="e"/>
+      <div class="col-2" v-for="e in events">
+          <eventCard :events="e"/>
       </div>
     </div>
   </div>
@@ -67,7 +67,7 @@ import { AppState } from '../AppState.js';
 import { eventsService } from '../services/EventsService.js';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop.js';
-import Event from '../components/Event.vue';
+import EventCard from '../components/EventCard.vue';
 
 export default {
   setup() {
@@ -84,11 +84,13 @@ export default {
       getAllEvents();
     });
     
-    const editable = ref({ type: 'concert' })
+    const editable = ref({ type: 'concert' });
       
     return {
       editable,
+
       events: computed(() => AppState.events),
+
       async createNewEvent() {
         try {
           const formData = editable.value
@@ -99,9 +101,9 @@ export default {
           Pop.error(error.message)
         }
       }
-    }
+    };
   },
-  components: { Event }
+  components: { EventCard }
 }
 </script>
 
