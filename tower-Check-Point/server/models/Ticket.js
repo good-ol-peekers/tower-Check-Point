@@ -20,3 +20,5 @@ TicketsSchema.virtual('event',{
   foreignField: '_id',
   justOne: true
 })
+
+TicketsSchema.index({accountId: 1, eventId: 1}, { unique: true })

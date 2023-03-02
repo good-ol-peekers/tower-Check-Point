@@ -8,6 +8,7 @@ constructor(){
     this.router
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('', this.createATicket)
+    
 }
 async createATicket(req, res, next) {
     try {
@@ -19,4 +20,6 @@ async createATicket(req, res, next) {
         next(error)
     }
 }
+
+
 }
