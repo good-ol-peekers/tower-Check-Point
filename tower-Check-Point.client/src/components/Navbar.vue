@@ -3,11 +3,11 @@
     <div class="row">
       <div class="col-12 ">
         <div class="navbar-nav d-flex flex-row me-auto">
-          <div>
+          <!-- <div>
             <router-link :to="{ name: 'Event' }" class="btn text-success lighten-30 selectable text-uppercase">
               <button> Event Details Page</button>
             </router-link>
-          </div>
+          </div> -->
           <div>
             <router-link :to="{ name: 'Account' }" class="btn text-success lighten-30 selectable text-uppercase">
               <button>Account Page </button>
