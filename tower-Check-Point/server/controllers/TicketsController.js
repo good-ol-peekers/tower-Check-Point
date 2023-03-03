@@ -23,8 +23,9 @@ async createATicket(req, res, next) {
 }
 async deleteTicket(req, res, next){
     try {
+        const creatorId = req.userInfo.id
         const ticketId = req.params.ticketId
-        const ticket = await ticketsService.DeleteTicket(ticketId)
+        const ticket = await ticketsService.DeleteTicket(creatorId, ticketId)
         return res.send(ticket)
     } catch (error) {
         next(error)

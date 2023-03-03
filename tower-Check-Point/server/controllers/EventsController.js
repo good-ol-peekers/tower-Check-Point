@@ -12,14 +12,25 @@ export class EventsController extends BaseController {
         super('api/events')
         this.router
         .get('', this.getAllEvents)
-        .get('/:eventId/tickets', this.getEventTickets)
-        // .get('/:eventId/comments', getEventComments)
         .get('/:eventId', this.getEventById)
+        .get('/:eventId/comments', this.getEventComments)
+        .get('/:eventId/tickets', this.getEventTickets)
         .use(Auth0Provider.getAuthorizedUserInfo)
         .post('', this.createEvent)
         .put('/:eventId', this.editEvent)
         .delete('/:eventId', this.cancelEvent)
     }
+
+    async getEventComments(req, res, next) {
+        try {
+           let eventId = req.params.eventId
+           let comments = await commentsService.getEventComments(eventId)
+           return res.send(comments) 
+        } catch (error) {
+            next(error)
+        }
+    }
+
 
     async getEventTickets(req, res, next){
         try {

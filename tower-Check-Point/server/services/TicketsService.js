@@ -6,12 +6,14 @@ import { TicketsSchema } from "../models/Ticket.js"
 
 
 class TicketsService {
-   async DeleteTicket(ticketId) {
+   async DeleteTicket(ticketId, creatorID) {
 
        // find the ticket I want to delete
        // after I find the ticket, I need to find the event that the ticket is for
     //    remove the ticket
     // increase the event capacity
+// !ticket.accountId != creatorID.toString()
+
        const ticket = await dbContext.Tickets.findById(ticketId)
        if (!ticket) {
          throw new BadRequest('ticket was not found during delete')
@@ -20,6 +22,9 @@ class TicketsService {
        if (ticket.eventId.toString() != eventTicket.id) {
         throw new BadRequest('ticket Id doesnt match event Id')
        }
+      //  if(ticket.accountId != creatorID){
+      //    throw new BadRequest('not your ticket to delete')
+      //  }
        eventTicket.capacity += 1
        await eventTicket.save()
        await ticket.remove()
@@ -58,6 +63,7 @@ class TicketsService {
       if (event.isCanceled) {
         throw new Forbidden('cant attend events that are canceled')
       }
+      // if(event.capacity == event.capacity++)
       const ticket = await dbContext.Tickets.create(ticketData)
       await ticket.populate('profile', 'name picture')
       await ticket.populate('event')

@@ -4,8 +4,31 @@ import { commentsService } from "../services/CommentsService.js";
 export class CommentsController extends BaseController {
     constructor() {
         super('api/comments')
-        // .post('', createComment)
-        // .delete('/:commentId', deleteComment)
-// FIGURE OUT PROFILE IN THE MODEL BEFORE CONTINUING
+        this.router
+        .use(Auth0Provider.getAuthorizedUserInfo)
+        .post('', this.createComment)
+        .delete('/:commentId', this.deleteComment)
+
+    }
+
+    async deleteComment(req, res, next){
+        try {
+            let commentId = req.params.id
+            let comment = await commentsService.deleteComment(commentId)
+            return res.send(comment)
+        } catch (error) {
+            next(error)
+        }
+    }
+    async createComment(req, res, next) {
+        try {
+            let commentData = req.body
+            //  let creatorId = req.userInfo.Id
+            // commentData.creatorId = req.userInfo.Id
+            let comment = await commentsService.createComment(commentData)
+            return res.send(comment)            
+        } catch (error) {
+            next(error)
+        }
     }
 }
