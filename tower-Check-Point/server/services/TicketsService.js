@@ -1,16 +1,37 @@
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { eventsService } from "./EventsService.js"
-
+import { EventsSchema } from "../models/Event.js"
+import { TicketsSchema } from "../models/Ticket.js"
 
 
 class TicketsService {
+   async DeleteTicket(ticketId) {
+
+       // find the ticket I want to delete
+       // after I find the ticket, I need to find the event that the ticket is for
+    //    remove the ticket
+    // increase the event capacity
+       const ticket = await dbContext.Tickets.findById(ticketId)
+       if (!ticket) {
+         throw new BadRequest('ticket was not found during delete')
+       }
+       let eventTicket = await eventsService.getEventById(ticket.eventId)
+       if (ticket.eventId.toString() != eventTicket.id) {
+        throw new BadRequest('ticket Id doesnt match event Id')
+       }
+       eventTicket.capacity += 1
+       await eventTicket.save()
+       await ticket.remove()
+ 
+         return 'ticket was deleted'
+   }
    async getEventTickets(eventId) {
-       const tickets = await dbContext.Events.find({eventId}) 
+    //    const event = await dbContext.Events.find({eventId}) 
+       const tickets = await dbContext.Tickets.find({eventId})
        .populate('profile')
+    //    if(tickets.eventId == event.id)
        return tickets
-    //    
-       
    }
 
 
