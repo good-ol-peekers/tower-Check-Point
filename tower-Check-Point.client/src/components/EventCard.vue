@@ -1,23 +1,23 @@
 <template>
     <router-link class="selectable" :to="{ name: 'Event', params: { eventId: events.id } }">
 
-      <div v-if="events.capacity == 0" class="canceled" >
-          <div class="eventCard">
-          <img class="eventImg image-fluid" :src="events.coverImg" alt="image should be here">
-          <h1>{{ events.name }}</h1>
-          <h1>{{ events.type }}</h1>
-          <h1>{{ events.capacity }}</h1>
-          </div>
-      </div>
-   
-<div v-else="events.capacity">
-    <div class="eventCard">
-    <img class="eventImg image-fluid" :src="events.coverImg" alt="image should be here">
-    <h1>{{ events.name }}</h1>
-    <h1>{{ events.type }}</h1>
-    <h1>{{ events.capacity }}</h1>
-</div>
-</div>
+        <div v-if="events.capacity == 0" class="canceled">
+            <div class="eventCard">
+                <img class="eventImg image-fluid" :src="events.coverImg" alt="image should be here">
+                <h5>{{ events.name }}</h5>
+                <h5>{{ events.type }}</h5>
+                <h5>{{ events.capacity }}</h5>
+            </div>
+        </div>
+
+        <div v-else="events.capacity">
+            <div class="eventCard">
+                <img class="eventImg image-fluid" :src="events.coverImg" alt="image should be here">
+                <h5>{{ events.name }}</h5>
+                <h5>{{ events.type }}</h5>
+                <h5>{{ events.capacity }}</h5>
+            </div>
+        </div>
 
     </router-link>
 </template>
@@ -52,7 +52,7 @@ export default {
 
 }
 
-.canceled{
- color: rgba(230, 17, 17, 0.3)
+.canceled {
+    color: rgba(230, 17, 17, 0.3)
 }
 </style>

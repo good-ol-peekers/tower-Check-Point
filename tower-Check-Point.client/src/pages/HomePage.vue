@@ -9,7 +9,7 @@
         <div class="col-10">
           <h1>Events</h1>
         </div>
-        <div class="col-10">
+        <div class="col-12 d-flex justify-content-between">
           <button @click="filterCategory('')" class="btn btn-success">All</button>
           <button @click="filterCategory('digital')" class="btn btn-success">Digital</button>
           <button @click="filterCategory('sport')" class="btn btn-success">Sport</button>
@@ -27,7 +27,7 @@
 
     <div v-if="events" class="container-fluid">
       <div class="row">
-        <div class="col-3 " v-for="e in events">
+        <div class="col-3 mt-4" v-for="e in events">
           <eventCard :events="e" />
         </div>
       </div>
@@ -140,9 +140,9 @@ export default {
           let newEvent = await eventsService.createNewEvent(formData)
           logger.log(newEvent, 'MY NEW EVENT')
           editable.value = {}
-          
-            router.push({ name: 'Event', params: { eventId: newEvent.id } })
-          
+
+          router.push({ name: 'Event', params: { eventId: newEvent.id } })
+
 
         } catch (error) {
           logger.error(error)
