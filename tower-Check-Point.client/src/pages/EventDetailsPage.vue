@@ -1,7 +1,7 @@
 <template>
   <div class="EventDetailsPage container-fluid" v-if="event">
-    <div class="row eventCard">
-      <div class="col-4">
+    <div v-if="event.capacity == 0 || event.isCanceled == true" class="row eventCard canceled">
+      <div class="col-4 canceledImg">
         <img :src="event.coverImg" alt="image">
       </div>
       <div class="col-6"> 
@@ -14,6 +14,27 @@
         <button class="btn btn-warning">Attend</button>  
       </div>
     </div>
+    <div v-else="event.capacity" class="row eventCard">
+        <div class="col-4"   >
+          <img :src="event.coverImg" alt="image">
+        </div>
+        <div class="col-6"> 
+          <h1> {{ event.name }} </h1>
+          <h1>{{ event.startDate }}</h1>
+          <h2>{{ event.location }}</h2>
+          <h2>{{ event.type }}</h2>
+          <p>{{ event.description }}</p>
+          <h1>{{ event.capacity }}</h1> 
+          <button class="btn btn-warning">Attend</button>  
+        </div>
+      </div>
+  </div>
+
+  <!-- v-if="event.capacity == 0 || event.isCanceled == true" -->
+
+
+  <div>
+
   </div>
 </template>
 
@@ -70,6 +91,10 @@ img {
     object-fit: cover;
     // object-position: bottom;
   }
-
-
+.canceled{
+ color: rgba(230, 17, 17, 0.1)
+}
+.canceledImg{
+  opacity: .08;
+}
 </style>
