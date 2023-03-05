@@ -5,13 +5,32 @@
     <p>{{ account.email }}</p>
   </div>
 
-  <div v-if="myEvents" class="container-fluid">
+  <!-- <div v-if="myEvents" class="container-fluid">
     <div class="row">
-      <div class="col-3 mt-4" v-for="e in myEvents">
+      <div class="col-3 mt-4" v-for="e in myEvents.to">
         <eventCard :events="e" />
+        
       </div>
     </div>
   </div>
+   -->
+
+  <!-- {{ myEvents }}
+
+  <div v-if="myEvents" class="container-fluid">
+<div class="row">
+  <div v-for="e in myEvents" class="col-2">
+<h1 :myevents="e.events">
+  {{ myEvents.id }}
+</h1>
+  </div>
+</div>
+  </div> -->
+
+
+
+
+
 </template>
 
 <script>

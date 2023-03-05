@@ -21,12 +21,15 @@
             </div>
         </div>
 
+
+
     </router-link>
 </template>
 
 
 <script>
 import { Event } from '../models/Event';
+
 
 export default {
     props: { events: { type: Event, required: true } },

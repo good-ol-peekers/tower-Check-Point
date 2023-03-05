@@ -18,7 +18,9 @@ export class EventAttendee extends Event {
     constructor(data) {
         super(data.profile)
         this.profile = new Profile(data.profile)
-        // this.name = data.name
-        // this.id = data.id
+        this.eventId = data.eventId
+        this.accountId = data.accountId
+
+        this.id = data.id
     }
 }
