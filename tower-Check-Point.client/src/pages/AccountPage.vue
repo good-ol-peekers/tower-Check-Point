@@ -5,6 +5,24 @@
     <p>{{ account.email }}</p>
   </div>
 
+
+
+<div v-if="myEvents">
+
+
+  <div v-for="e in myEvents">
+<MyTickets :tickets="e" />
+
+  </div>
+
+</div>
+
+
+
+
+
+
+
   <!-- <div v-if="myEvents" class="container-fluid">
     <div class="row">
       <div class="col-3 mt-4" v-for="e in myEvents.to">
@@ -39,7 +57,8 @@ import { eventsService } from '../services/EventsService.js';
 import { onMounted, computed } from 'vue';
 import { AppState } from '../AppState.js';
 import Pop from '../utils/Pop.js';
-import EventCard from '../components/EventCard.vue';
+// import EventCard from '../components/EventCard.vue';
+import MyTickets from '../components/MyTickets.vue';
 
 export default {
   setup() {
@@ -68,7 +87,7 @@ export default {
 
     }
   },
-  components: { EventCard }
+  components: { MyTickets }
 }
 </script>
 

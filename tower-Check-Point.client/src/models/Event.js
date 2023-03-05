@@ -19,8 +19,7 @@ export class EventAttendee extends Event {
         super(data.profile)
         this.profile = new Profile(data.profile)
         this.eventId = data.eventId
-        this.accountId = data.accountId
-
-        this.id = data.id
+        this.accountId = this.accountId
+        // this.id = data.id
     }
 }
