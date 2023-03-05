@@ -11,9 +11,9 @@
         <h2>{{ event.type }}</h2>
         <p>{{ event.description }}</p>
         <h1>{{ event.capacity }}</h1>
-        <button class="btn btn-warning">Attend</button>
       </div>
     </div>
+
     <div v-else="event.capacity" class="row eventCard">
       <div class="col-4 d-flex align-items-center">
         <img class="img-fluid" :src="event.coverImg" alt="image">
@@ -26,11 +26,28 @@
           <h2 class="col-12">Type: {{ event.type }}</h2>
           <p class="col-12">{{ event.description }}</p>
           <h1>Capacity: {{ event.capacity }}</h1>
-          <button class="btn btn-warning col-2">Attend</button>
+
+          <div v-if="myEvent">
+            <button @click="cancelEvent()" >Cancel Event</button>
+          </div>
+
+          <div v-if="!alreadyAttending">
+            <button @click="attendEvent()" class="btn btn-warning col-2">Attend</button>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
+
+
+
+
+  <div v-for="e in attendees">
+    <AttendeeCard :attendee="e" />
+  </div>
+
+
 
   <!-- v-if="event.capacity == 0 || event.isCanceled == true" -->
 
@@ -66,11 +83,13 @@
 import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
 import { useRoute, useRouter } from 'vue-router';
-import { watchEffect, computed, onMounted, ref } from 'vue';
+import { watchEffect, computed, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import { commentsService } from '../services/CommentsService.js';
 import { logger } from '../utils/Logger';
 import CommentCard from '../components/CommentCard.vue';
+import AttendeeCard from '../components/AttendeeCard.vue';
+import { attendeesService } from '../services/AttandeesService.js';
 
 export default {
   setup() {
@@ -106,20 +125,55 @@ export default {
       }
     }
 
+    async function getAttendees() {
+      try {
+        const eventId = route.params.eventId
+        await attendeesService.getAttendees(eventId)
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
 
 
     watchEffect(() => {
       if (route.params.eventId) {
         getEventById()
         getAllComments()
+        getAttendees()
 
       }
     })
 
     return {
       editable,
+      account: computed(() => AppState.account),
       event: computed(() => AppState.event),
       comments: computed(() => AppState.comments),
+      attendees: computed(() => AppState.attendees, console.log(AppState.attendees, "attendees")),
+      alreadyAttending: computed(() => AppState.attendees.find(a => a.id == AppState.account.id)),
+      myEvent: computed(() => AppState.events.find(c => c.id == AppState.account.id)),
+
+      async cancelEvent(){
+        try {
+          let eventId = route.params.eventId
+          let event = await eventsService.cancelEvent(eventId)
+          logger.log(event)
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+
+
+      async attendEvent() {
+        try {
+          let eventId = route.params.eventId
+          let attending = await attendeesService.attendEvent(eventId)
+          logger.log(attending)
+        } catch (error) {
+          Pop.error(error, 'Attend Event')
+        }
+      },
+
 
       async createComment() {
         try {
@@ -137,7 +191,7 @@ export default {
 
     }
   },
-  components: { CommentCard }
+  components: { CommentCard, AttendeeCard }
 }
 </script>
 

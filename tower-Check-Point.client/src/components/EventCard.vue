@@ -13,9 +13,11 @@
         <div v-else="events.capacity">
             <div class="eventCard">
                 <img class="eventImg image-fluid" :src="events.coverImg" alt="image should be here">
-                <h5>{{ events.name }}</h5>
-                <h5>{{ events.type }}</h5>
-                <h5>{{ events.capacity }}</h5>
+                <div class="cardText">
+                    <h5>{{ events.type }}</h5>
+                    <h5>{{ events.name }}</h5>
+                    <h5>{{ events.capacity }}</h5>
+                </div>
             </div>
         </div>
 
@@ -37,20 +39,22 @@ export default {
 
 
 <style lang="scss" scoped>
+.eventCard {
+    border: 2px solid black;
+    overflow: hidden;
+}
+
 .eventImg {
     height: 40vh;
     width: auto;
     object-fit: cover;
     // overflow:hidden;
-
-
 }
 
-.eventCard {
-    border: 2px solid black;
-    overflow: hidden;
-
+.cardText {
+    margin: 5px 0px 5px 10px;
 }
+
 
 .canceled {
     color: rgba(230, 17, 17, 0.3)
