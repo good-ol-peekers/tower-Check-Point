@@ -31,7 +31,7 @@
             <button @click="cancelEvent()" >Cancel Event</button>
           </div>
 
-          <div v-if="alreadyAttending">
+          <div v-if="!alreadyAttending">
             <button @click="attendEvent()" class="btn btn-warning col-2">Attend</button>
           </div>
 
