@@ -27,8 +27,8 @@
           <p class="col-12">{{ event.description }}</p>
           <h1>Capacity: {{ event.capacity }}</h1>
 
-          <div v-if="myEvent">
-            <button @click="cancelEvent()" >Cancel Event</button>
+          <div v-if="event.creatorId == account.id">
+            <button @click="cancelEvent()">Cancel Event</button>
           </div>
 
           <div v-if="!alreadyAttending">
@@ -107,6 +107,8 @@ export default {
 
         await eventsService.getEventById(eventId);
 
+
+
       } catch (error) {
         Pop.error(error.message)
         router.push('/')
@@ -151,9 +153,9 @@ export default {
       comments: computed(() => AppState.comments),
       attendees: computed(() => AppState.attendees, console.log(AppState.attendees, "attendees")),
       alreadyAttending: computed(() => AppState.attendees.find(a => a.id == AppState.account.id)),
-      myEvent: computed(() => AppState.events.find(c => c.id == AppState.account.id)),
+      // myEvent: computed(() => AppState.event.find(c => c.creatorId == AppState.account.id)),
 
-      async cancelEvent(){
+      async cancelEvent() {
         try {
           let eventId = route.params.eventId
           let event = await eventsService.cancelEvent(eventId)

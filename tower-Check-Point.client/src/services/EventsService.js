@@ -8,7 +8,7 @@ class EventsService{
 
     async getMyEvents(){
         const res = await api.get('account/tickets')
-        AppState.myEvents = res.data.map(e => new EventAttendee(e))
+        AppState.myEvents = res.data
     }
 
     async cancelEvent(eventId){

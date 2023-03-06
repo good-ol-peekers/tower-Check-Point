@@ -7,15 +7,16 @@
 
 
 
-<div v-if="myEvents">
+  <div v-if="myEvents">
 
 
-  <div v-for="e in myEvents">
-<MyTickets :tickets="e" />
+    <div v-for="e in myEvents" class="m-3">
+      <!-- <MyTickets :tickets="e" /> -->
+      <img :src="e.event.coverImg" alt="">
+      {{ e.event.name }}
+    </div>
 
   </div>
-
-</div>
 
 
 
@@ -44,11 +45,6 @@
   </div>
 </div>
   </div> -->
-
-
-
-
-
 </template>
 
 <script>
